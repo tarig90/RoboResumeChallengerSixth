@@ -13,8 +13,10 @@ import com.roboresumesixchallenger.demo.RepositoryLayer.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -55,9 +57,12 @@ public class MainController {
     }
 
     @PostMapping("/adduser")
-    public String postAdd(Model model, User user)
+    public String postAdd(@Valid Model model, User user, BindingResult bindingResult)
     {
-
+        if(bindingResult.hasErrors())
+        {
+            return "adduser";
+        }
      model.addAttribute("user", user);
 
      userRepository.save(user);
@@ -78,11 +83,14 @@ public class MainController {
     }
 
     @PostMapping("/addeducation")
-    public String postEducation(@ModelAttribute("newedu") EducationClass edu)
+    public String postEducation(@Valid @ModelAttribute("newedu") EducationClass edu, BindingResult bindingResult)
     {
 
 
-
+        if(bindingResult.hasErrors())
+        {
+            return "addeducation";
+        }
         educationRepository.save(edu);
         return "confirmeducation";
     }
@@ -107,8 +115,12 @@ public class MainController {
     }
 
     @PostMapping("/addexperience")
-    public String postExperience(@ModelAttribute("newexp") Experience exp)
+    public String postExperience(@Valid @ModelAttribute("newexp") Experience exp, BindingResult bindingResult)
     {
+        if(bindingResult.hasErrors())
+        {
+            return "addexperience";
+        }
         experienceRepository.save(exp);
         return "confirmexperience";
     }
@@ -136,8 +148,12 @@ public class MainController {
     }
 
     @PostMapping("/addskills")
-    public String postEducation(@ModelAttribute("newskl") SkillsClass skla)
+    public String postEducation(@Valid @ModelAttribute("newskl") SkillsClass skla, BindingResult bindingResult)
     {
+        if(bindingResult.hasErrors())
+        {
+            return "addskills";
+        }
         skillRepository.save(skla);
         return "confirmskills";
     }
@@ -187,5 +203,13 @@ public class MainController {
     }
 
 
+    @RequestMapping("/detail/{id}")
+    public String showCourse(@PathVariable("id") long id, Model model){
+        model.addAttribute("userdetail", userRepository.findOne(id));
+        model.addAttribute("listeducation", educationRepository.findOne(id));
+        model.addAttribute("listexperience", experienceRepository.findOne(id));
+        model.addAttribute("listskills", skillRepository.findOne(id));
+        return "show";
+    }
 
 }

@@ -2,6 +2,8 @@ package com.roboresumesixchallenger.demo.ModelLayer;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class SkillsClass {
@@ -11,7 +13,12 @@ public class SkillsClass {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    @NotNull
+    @Size(min=4,max=40)
     private String SkillOne;
+    @NotNull
+    @Size(min=4,max=40)
     private String SkillTwo;
 
 

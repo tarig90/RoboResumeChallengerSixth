@@ -2,6 +2,8 @@ package com.roboresumesixchallenger.demo.ModelLayer;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
@@ -11,9 +13,17 @@ public class Experience {
     @Id
     private long id;
 
+    @NotNull
+    @Size(min=2, max=10)
     private String companyName;
+    @NotNull
+    @Size(min=3, max=20)
     private String title;
+    @NotNull
+    @Size(min=3, max=20)
     private String duty1;
+    @NotNull
+    @Size(min=3, max=20)
     private String duty2;
 
 
