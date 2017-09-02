@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table class="table">
+
+
+
+    <div class="container">
+        <h1>Users</h1>
+
+        <table class="table">
+
+            <th><strong>ID</strong></th>
+            <th><strong>First Name</strong></th>
+            <th><strong>Last Name</strong></th>
+            <th><strong>Email Address</strong></th>
+
+            <tr th:each="i:${allusers}">
+                <td th:text="${i.id}"></td>
+                <td th:text="${i.firstName}"></td>
+                <td th:text="${i.lastName}"></td>
+                <td th:text="${i.emailAddress}"></td>
+
+                <td>
+                    <a th:href="@{/update/{id}(id=${i.id})}">Update</a>            <a th:href="@{/update/user/{id} (id=${i.id})}">Update</a> - <a th:href="@{/delete/department/{id} (id=${i.id})}">Delete</a>
+                </td>
+            </tr>
+        </table>
+        <h1>EXperiences</h1>
+
+        <table class="table">
+
+            <th><strong>Company Name</strong></th>
+            <th><strong>Title</strong></th>
+            <th><strong>Duty 1</strong></th>
+            <th><strong>Duty 2</strong></th>
+
+
+            <tr th:each="e:${allexperience}">
+                <td th:text="${e.id}"></td>
+                <td th:text="${e.companyName}"></td>
+                <td th:text="${e.title}"></td>
+                <td th:text="${e.duty1}"></td>
+                <td th:text="${e.duty2}"></td>
+
+
+
+                <td>
+                    <a th:href="@{/updateEx/{id} (id=${e.user.id})}">Update</a> - >Delete</a>
+                </td>
+            </tr>
+        </table>
+
+        <table class="table">
+            <th><strong>Education</strong></th>
+            <th><strong>School Name</strong></th>
+            <th><strong>Graduation Date</strong></th>
+
+
+
+            <tr th:each="e:${alleducation}">
+                <td th:text="${e.id}"></td>
+                <td th:text="${e.schoolName}"></td>
+                <td th:text="${e.graduationDate}"></td>
+
+
+
+
+                <td>
+                    <a th:href="@{/updateED/{id} (id=${e.user.id})}">Update</a>
+                    <!--<a th:href="@{/update/user.educationClass/{id} (id=${e.id})}">Update</a> - -->
+                    <!--<a th:href="@{/delete/employee/{id} (id=${e.id})}">Delete</a>-->
+                </td>
+            </tr>
+        </table>
+
+        <table class="table">
+            <th><strong>Skills</strong></th>
+            <th><strong>Skill One</strong></th>
+            <th><strong>Skill Two</strong></th>
+
+
+
+            <tr th:each="e:${allskills}">
+                <td th:text="${e.id}"></td>
+                <td th:text="${e.skillOne}"></td>
+                <td th:text="${e.skillTwo}"></td>
+
+
+
+
+                <td>
+                    <a th:href="@{/updateSkl/{id} (id=${e.user.id})}">Update</a> -
+                </td>
+            </tr>
+        </table>
+    </div>
+</table>
+</body>
+</html>

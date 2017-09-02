@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+<div class="container">
+
+    <p th:inline="text">Name: [[${user.firstName}]] [[${user.lastName}]]</p>
+    <p th:text="${user.emailAddress}"></p>
+
+
+    <a th:href="@{/addeducation/{id}(id=${user.id})}">add education</a>
+
+    <a th:href="@{/addskills/{id}(id=${user.id})}">add skills</a>
+</div>
+
+
 
 </body>
 </html>

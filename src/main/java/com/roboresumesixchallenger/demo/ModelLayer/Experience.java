@@ -10,12 +10,18 @@ public class Experience {
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Id
     private long id;
+
     private String companyName;
+    private String title;
+    private String duty1;
+    private String duty2;
 
 
+    // move classes to here
+     @ManyToOne(fetch = FetchType.EAGER)
+     @JoinColumn(name = "userexp_id")
+     private User user;
 
-    @OneToMany(mappedBy = "experience", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<User> employeeSet;
 
     public Experience(String companyName){
         this.companyName=companyName;
@@ -48,14 +54,38 @@ public class Experience {
         this.companyName = companyName;
     }
 
-    public Set<User> getEmployeeSet() {
-        return employeeSet;
+
+    public String getTitle() {
+        return title;
     }
 
-    public void setEmployeeSet(Set<User> employeeSet) {
-        this.employeeSet = employeeSet;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDuty1() {
+        return duty1;
+    }
+
+    public void setDuty1(String duty1) {
+        this.duty1 = duty1;
+    }
+
+    public String getDuty2() {
+        return duty2;
+    }
+
+    public void setDuty2(String duty2) {
+        this.duty2 = duty2;
     }
 
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
 }

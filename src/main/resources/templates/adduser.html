@@ -1,10 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+<!--content here-->
+<form action="#" th:action="@{/adduser}" th:object="${user}" method="post" >
 
+    <input type="hidden" th:field="*{id}" />
+    <p><h4>First Name</h4> <input type="text" th:field="*{firstName}"/></p>
+    <p>  <h4> Last Name  </h4> <input type="text" th:field="*{lastName}"/></p>
+    <p>  <h4> Email Address  </h4> <input type="text" th:field="*{emailAddress}"/></p>
+
+    <!--<p>  <h4> Department  </h4> <input type="text" th:field="*{department.id}"/></p>-->
+
+    <!--<table class="table">-->
+
+        <!--<th><strong>School Name</strong></th>-->
+        <!--<th><strong>Graduation Date</strong></th>-->
+
+
+        <!--<tr th:each="i:${listedu}">-->
+            <!--<td th:text="${i.schoolName}"></td>-->
+            <!--<td th:text="${i.graduationDate}"></td>-->
+
+            <!--<td>-->
+                <!--<a th:href="@{/update/department/{id} (id=${i.id})}">Update</a> - <a th:href="@{/delete/department/{id} (id=${i.id})}">Delete</a>-->
+            <!--</td>-->
+        <!--</tr>-->
+    <!--</table>-->
+
+
+    <input type="submit"  value="Save" class="btn btn-lg btn-default btn-block" />
+</form>
 </body>
 </html>

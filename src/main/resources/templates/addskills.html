@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="#" th:action="@{/addskills}" th:object="${newskl}" method="post" >
+
+    <input type="text" th:field="*{user.id}" />
+    <input type="hidden" th:field="*{id}" />
+    <p><h4>First Name</h4> <input type="text" th:field="*{skillOne}"/></p>
+    <p> <h4> Graduatio Date  </h4> <input type="date" th:field="*{skillTwo}"/></p>
+
+
+    <!--<p>  <h4> Department  </h4> <input type="text" th:field="*{department.id}"/></p>-->
+
+
+
+    <input type="submit"  value="Save" class="btn btn-lg btn-default btn-block" />
+</form>
+</body>
+</html>

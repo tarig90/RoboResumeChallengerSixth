@@ -1,12 +1,12 @@
 package com.roboresumesixchallenger.demo.ModelLayer;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
 public class User {
-
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,10 +14,54 @@ public class User {
 
     private String firstName;
     private String lastName;
+    private String emailAddress;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "experience_id")
-    private Experience experience;
+
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+   public Set<Experience> experiences;
+
+
+
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public Set<EducationClass> educationClass;
+
+
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public Set<SkillsClass> skillClass;
+
+
+    public User(String firstName, String lastName, String emailAddress, Set<Experience> experiences, Set<EducationClass> educationClass, Set<SkillsClass> skillClass) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.emailAddress = emailAddress;
+        this.experiences = new HashSet<Experience>();
+        this.educationClass = new HashSet<EducationClass>();
+        this.skillClass = new HashSet<SkillsClass>();
+    }
+
+    public User()
+    {
+
+
+    }
+
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", experiences=" + experiences +
+                ", educationClass=" + educationClass +
+                ", skillClass=" + skillClass +
+                '}';
+    }
 
     public long getId() {
         return id;
@@ -43,11 +87,47 @@ public class User {
         this.lastName = lastName;
     }
 
-    public Experience getExperience() {
-        return experience;
+
+
+    public String getEmailAddress() {
+        return emailAddress;
     }
 
-    public void setExperience(Experience experience) {
-        this.experience = experience;
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
     }
+
+
+
+
+    public Set<Experience> getExperiences() {
+        return experiences;
+    }
+
+    public void setExperiences(Set<Experience> experiences) {
+        this.experiences = experiences;
+    }
+
+    public Set<EducationClass> getEducationClass() {
+        return educationClass;
+    }
+
+    public void setEducationClass(Set<EducationClass> educationClass) {
+        this.educationClass = educationClass;
+    }
+
+    public Set<SkillsClass> getSkillClass() {
+        return skillClass;
+    }
+
+    public void setSkillClass(Set<SkillsClass> skillClass) {
+        this.skillClass = skillClass;
+    }
+
+
+   public void addEdu(EducationClass ed)
+   {
+       ed.setUser(this);
+       this.educationClass.add(ed);
+   }
 }
