@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <th:block th:replace="base::header"></th:block>
 </head>
 <body>
+<div style="margin-left: 500px" >
+<th:block th:replace="base::navigation"></th:block>
 <p th:text="${newexp.companyName}"></p>
 <p th:text="${newexp.title}"></p>
 <p th:text="${newexp.duty1}"></p>
 <p th:text="${newexp.duty2}"></p>
 
 
+
 <a th:href="@{/addskills/{id}(id=${newexp.user.id})}">add skill</a>
+</div>
+<th:block th:replace="base::footer"></th:block>
 </body>
 </html>

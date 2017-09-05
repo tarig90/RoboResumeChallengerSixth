@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="base::header"></th:block>
+</head>
+<body>
+<th:block th:replace="base::navigation"></th:block>
+<div class="container">
+
+    <p th:inline="text">Team Name: [[${newteam.name}]] </p>
+
+
+</div>
+<th:block th:replace="base::footer"></th:block>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <th:block th:replace="base::header"></th:block>
+</head>
+<body>
+
+<th:block th:replace="base::navigation"></th:block>
+<div class="container">
+
+    <div id="wrapper">
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!--content here-->
+                        <form action="#" th:action="@{/addemployee}" th:object="${newemp}" method="post" >
+
+                            <input type="hidden" th:field="*{id}" />
+                            <p><h4>First Name</h4> <input type="text" th:field="*{firstName}"/></p>
+                            <p>  <h4> Last Name  </h4> <input type="text" th:field="*{lastName}"/></p>
+                            <p>  <h4> Cellphone Number  </h4> <input type="text" th:field="*{cellphone}"/></p>
+                            <p>  <h4> Work NUmber  </h4> <input type="text" th:field="*{workNUmber}"/></p>
+                            <!--<p>  <h4> Department  </h4> <input type="text" th:field="*{department.id}"/></p>-->
+
+                            <select th:field="*{department}">
+                                <option value=""> Select Department</option>
+                                <option th:each="dpt:${listdpt}"
+                                        th:value="${dpt.id}"
+                                        th:text="${dpt.name}">
+                                </option>
+
+                            </select>
+
+                            <select name="Teams">
+                                <!--<option value=""> Select Teams</option>-->
+                                <option th:each="tm:${listteam}"
+                                        th:value="${tm.id}"
+                                        th:text="${tm.name}">
+                                </option>
+
+                            </select>
+
+
+                            <input type="submit"  value="Save" class="btn btn-lg btn-default btn-block" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
+
+<th:block th:replace="base::footer"></th:block>
+</body>
+</html>

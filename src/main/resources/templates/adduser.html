@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <th:block th:replace="base::header"></th:block>
 </head>
 <body>
-<!--content here-->
+
+<th:block th:replace="base::navigation"></th:block>
+<div  style="margin-left: 500px">
 <form action="#" th:action="@{/adduser}" th:object="${user}" method="post" >
 
     <input type="hidden" th:field="*{id}" />
@@ -34,5 +35,7 @@
 
     <input type="submit"  value="Save" class="btn btn-lg btn-default btn-block" />
 </form>
+</div>
+<th:block th:replace="base::footer"></th:block>
 </body>
 </html>

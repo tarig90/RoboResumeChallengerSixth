@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <th:block th:replace="base::header"></th:block>
+</head>
+<body>
+<table style="margin-left: 500px" class="container">
+    <th:block th:replace="base::navigation"></th:block>
+<tr th:each="i:${userdetail}">
+    <td th:text="${i.id}"></td>
+    <td th:text="${i.firstName}"></td>
+    <td th:text="${i.lastName}"></td>
+    <td th:text="${i.emailAddress}"></td>
+
+    <td>
+                 <tr th:each="b:${listeducation}">
+  <td>School Name  <td th:text="${b.schoolName}"></td>
+  <td>Graduation Date</td>  <td th:text="${b.graduationDate}"></td>
+
+</tr>
+
+    <tr th:each="s:${listexperience}">
+        <td>Company Name  <td th:text="${s.companyName}"></td>
+        <td>Title</td>  <td th:text="${s.title}"></td>
+        <td>Duty One  <td th:text="${s.duty1}"></td>
+        <td>Duty Two</td>  <td th:text="${s.duty2}"></td>
+    </tr>
+
+    <tr th:each="g:${listskills}">
+        <td>Company Name  <td th:text="${g.skillOne}"></td>
+        <td>Title</td>  <td th:text="${g.skillTwo}"></td>
+
+    </tr>
+
+</table>
+
+<th:block th:replace="base::footer"></th:block>
+</body>
+</html>

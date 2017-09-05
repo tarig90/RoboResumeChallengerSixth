@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <th:block th:replace="base::header"></th:block>
 </head>
 <body>
 <table class="table">
-
+    <th:block th:replace="base::navigation"></th:block>
 
 
     <div class="container">
@@ -26,6 +25,7 @@
                 <td th:text="${i.emailAddress}"></td>
 
                 <td>
+                    <a th:href="@{/detail/{id}(id=${i.id})}">Details</a>
                     <a th:href="@{/update/{id}(id=${i.id})}">Update</a>            <a th:href="@{/update/user/{id} (id=${i.id})}">Update</a> - <a th:href="@{/delete/department/{id} (id=${i.id})}">Delete</a>
                 </td>
             </tr>
@@ -55,7 +55,7 @@
             </tr>
         </table>
 
-        <table class="table">
+        <table style="margin-left: 200px" class="table">
             <th><strong>Education</strong></th>
             <th><strong>School Name</strong></th>
             <th><strong>Graduation Date</strong></th>
@@ -99,6 +99,8 @@
             </tr>
         </table>
     </div>
+
 </table>
+<th:block th:replace="base::footer"></th:block>
 </body>
 </html>

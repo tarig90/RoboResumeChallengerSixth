@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <th:block th:replace="base::header"></th:block>
 </head>
 <body>
-<div class="container">
+<th:block th:replace="base::navigation"></th:block>
+<div style="margin-left: 500px" class="container">
 
     <p th:inline="text">Name: [[${user.firstName}]] [[${user.lastName}]]</p>
     <p th:text="${user.emailAddress}"></p>
 
 
+
+
+    <div class="pager">
     <a th:href="@{/addeducation/{id}(id=${user.id})}">add education</a>
 
-    <a th:href="@{/addskills/{id}(id=${user.id})}">add skills</a>
+    <!--<a th:href="@{/addskills/{id}(id=${user.id})}">add skills</a>-->
+    </div>
 </div>
 
 
-
+<th:block th:replace="base::footer"></th:block>
 </body>
 </html>

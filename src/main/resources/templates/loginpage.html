@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <th:block th:replace="base::header"></th:block>
+</head>
+<body>
+<th:block th:replace="base::navigation"></th:block>
+<div class="container">
+    <div class="panel panel-default">
+        <form th:action="@{/loginpage}" method="post">
+
+            <div><h4> User Name </h4><input type="text" name="username"></label></div>
+            <div><h4> Password</h4><input type="password" name="password"></label></div>
+            <div><input type="submit" value="Sign in" class="btn btn-primary btn-lg"/> </div>
+
+        </form>
+
+    </div>
+</div>
+<th:block th:replace="base::footer"></th:block>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <th:block th:replace="base::header"></th:block>
+</head>
+<body>
+<th:block th:replace="base::navigation"></th:block>
+
+<div class="container">
+
+    <p th:inline="text">Name: [[${emp.firstName}]] [[${emp.lastName}]]</p>
+    <p th:text="${emp.department}"></p>
+    <p th:text="${emp.cellphone}"></p>
+    <p th:text="${emp.workNUmber}"></p>
+    <a href="/addemployee"> Add employee 2</a>
+    <a href="/displayall"> Display All</a>
+</div>
+
+<th:block th:replace="base::footer"></th:block>
+</body>
+</html>

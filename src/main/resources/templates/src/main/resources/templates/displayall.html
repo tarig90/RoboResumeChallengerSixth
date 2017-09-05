@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <th:block th:replace="base::header"></th:block>
+</head>
+<body>
+
+<th:block th:replace="base::navigation"></th:block>
+<div class="container">
+    <h1>Departments</h1>
+
+    <table class="table">
+
+        <th><strong>ID</strong></th>
+        <th><strong>Name</strong></th>
+        <th><strong>Dept Head</strong></th>
+        <th><strong>Action</strong></th>
+
+        <tr th:each="i:${allDepartment}">
+            <td th:text="${i.id}"></td>
+            <td th:text="${i.name}"></td>
+            <td th:text="${i.head}"></td>
+
+            <td>
+                <a th:href="@{/update/department/{id} (id=${i.id})}">Update</a> - <a th:href="@{/delete/department/{id} (id=${i.id})}">Delete</a>
+            </td>
+        </tr>
+    </table>
+    <h1>Employees</h1>
+
+    <table class="table">
+
+        <th><strong>ID</strong></th>
+        <th><strong>First Name</strong></th>
+        <th><strong>Last Name</strong></th>
+        <th><strong>Dept</strong></th>
+        <th><strong>Cell#</strong></th>
+        <th><strong>Work#</strong></th>
+        <th><strong>Action</strong></th>
+
+        <tr th:each="e:${allEmployee}">
+            <td th:text="${e.id}"></td>
+            <td th:text="${e.firstName}"></td>
+            <td th:text="${e.lastName}"></td>
+            <td th:text="${e.department}"></td>
+            <td th:text="${e.cellphone}"></td>
+            <td th:text="${e.workNUmber}"></td>
+
+
+            <td>
+                <a th:href="@{/update/employee/{id} (id=${e.id})}">Update</a> - <a th:href="@{/delete/employee/{id} (id=${e.id})}">Delete</a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+<th:block th:replace="base::footer"></th:block>
+
+
+</body>
+</html>

@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <th:block th:replace="base::header"></th:block>
 </head>
 <body>
+<th:block th:replace="base::navigation"></th:block>
+<div>
+
+    <h4> Build A GREAT RESUME</h4>
+    <img src="https://img.uptowork.net/77ce7af9-9a52-4e20-bec3-7b2a311290b2.jpg">
+
+    <ul class="pager" style="padding-bottom: 64px; margin-bottom: 40%" >
+        <li><a href="adduser.html">Next >></a></li>
+
+    </ul>
+  </div>
+
+<th:block th:replace="base::footer"></th:block>
+
 
 </body>
 </html>

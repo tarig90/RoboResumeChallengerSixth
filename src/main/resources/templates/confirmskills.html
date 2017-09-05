@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <th:block th:replace="base::header"></th:block>
 </head>
 <body>
+<th:block th:replace="base::navigation"></th:block>
 
-
+<h2> Skills Were added Successfully</h2>
+<div  style="margin-left: 500px">
 <p th:text="${newskl.skillOne}"></p>
 <p th:text="${newskl.skillOne}"></p>
 
+    <a href="displayall">View The list of All Users</a>
+</div>
+<th:block th:replace="base::footer"></th:block>
 </body>
+
 </html>

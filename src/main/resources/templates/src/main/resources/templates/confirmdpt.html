@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <th:block th:replace="base::header"></th:block>
+</head>
+<body>
+<th:block th:replace="base::navigation"></th:block>
+<div class="container">
+
+    <p th:inline="text">Department Name: [[${newdpt.name}]] </p>
+
+    <a href="/addDept"> Add Department</a>
+    <a href="/displayall"> Display All</a>
+</div>
+</body>
+<th:block th:replace="base::footer"></th:block>
+</html>
