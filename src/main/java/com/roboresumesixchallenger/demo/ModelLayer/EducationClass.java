@@ -6,7 +6,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
-import java.util.Set;
 
 
 @Entity
@@ -31,7 +30,7 @@ public class EducationClass {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_educid")
-    public User user;
+    public RoboUser roboUser;
 
 
     public EducationClass() {
@@ -50,7 +49,7 @@ public class EducationClass {
                 "id=" + id +
                 ", schoolName='" + schoolName + '\'' +
                 ", graduationDate=" + graduationDate +
-                ", user=" + user +
+                ", roboUser=" + roboUser +
                 '}';
     }
 
@@ -79,15 +78,15 @@ public class EducationClass {
         this.graduationDate = graduationDate;
     }
 
-    public User getUser() {
-        return user;
+    public RoboUser getRoboUser() {
+        return roboUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setRoboUser(RoboUser roboUser) {
+        this.roboUser = roboUser;
     }
 
-    public void AddUser(User temp)
+    public void AddUser(RoboUser temp)
     {
 
 

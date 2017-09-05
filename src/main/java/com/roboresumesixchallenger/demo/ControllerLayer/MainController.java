@@ -3,8 +3,8 @@ package com.roboresumesixchallenger.demo.ControllerLayer;
 
 import com.roboresumesixchallenger.demo.ModelLayer.EducationClass;
 import com.roboresumesixchallenger.demo.ModelLayer.Experience;
+import com.roboresumesixchallenger.demo.ModelLayer.RoboUser;
 import com.roboresumesixchallenger.demo.ModelLayer.SkillsClass;
-import com.roboresumesixchallenger.demo.ModelLayer.User;
 
 import com.roboresumesixchallenger.demo.RepositoryLayer.EducationRepository;
 import com.roboresumesixchallenger.demo.RepositoryLayer.ExperienceRepository;
@@ -17,8 +17,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Date;
 
 @Controller
 public class MainController {
@@ -54,25 +52,25 @@ public class MainController {
 
         return "loginpage";
     }
-    // adding a user section
+    // adding a roboUser section
     @GetMapping("/adduser")
     public String addUser(Model model)
     {
-        model.addAttribute("user", new User());
+        model.addAttribute("roboUser", new RoboUser());
 
         return "adduser";
     }
 
     @PostMapping("/adduser")
-    public String postAdd(@Valid Model model, User user, BindingResult bindingResult)
+    public String postAdd(@Valid Model model, RoboUser roboUser, BindingResult bindingResult)
     {
         if(bindingResult.hasErrors())
         {
             return "adduser";
         }
-     model.addAttribute("user", user);
+     model.addAttribute("roboUser", roboUser);
 
-     userRepository.save(user);
+     userRepository.save(roboUser);
      return "confirmuser";
 
     }
@@ -80,10 +78,10 @@ public class MainController {
     // adding education
 
     @GetMapping("/addeducation/{id}")
-    public String getEDucation(@PathVariable("id") long id, User user, Model model)
+    public String getEDucation(@PathVariable("id") long id, RoboUser roboUser, Model model)
     {
         EducationClass educ =  new EducationClass();
-        educ.setUser(userRepository.findOne(id));
+        educ.setRoboUser(userRepository.findOne(id));
         model.addAttribute("newedu", educ);
 
         return "addeducation";
@@ -112,10 +110,10 @@ public class MainController {
     // add experience
 
     @GetMapping("/addexperience/{id}")
-    public String getExperience(@PathVariable("id") long id, User user, Model model)
+    public String getExperience(@PathVariable("id") long id, RoboUser roboUser, Model model)
     {
        Experience exper =  new Experience();
-        exper.setUser(userRepository.findOne(id));
+        exper.setRoboUser(userRepository.findOne(id));
         model.addAttribute("newexp", exper);
 
         return "addexperience";
@@ -145,10 +143,10 @@ public class MainController {
     // add skills
 
     @GetMapping("/addskills/{id}")
-    public String getSkills(@PathVariable("id") long id, User user, Model model)
+    public String getSkills(@PathVariable("id") long id, RoboUser roboUser, Model model)
     {
         SkillsClass skl =  new SkillsClass();
-        skl.setUser(userRepository.findOne(id));
+        skl.setRoboUser(userRepository.findOne(id));
         model.addAttribute("newskl", skl);
 
         return "addskills";
@@ -192,9 +190,9 @@ public class MainController {
     {
         String output=null;
         switch(type){
-            case "user":
+            case "roboUser":
                 //stuff
-                model.addAttribute("user",userRepository.findOne(id));
+                model.addAttribute("roboUser",userRepository.findOne(id));
                 //model.addAttribute("listeduc", educationRepository.findAll());
                 output="adduser";
                 break;

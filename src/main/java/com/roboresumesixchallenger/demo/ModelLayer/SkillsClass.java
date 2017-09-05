@@ -24,7 +24,7 @@ public class SkillsClass {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userskill_id")
-    private User user;
+    private RoboUser roboUser;
 
 
     public long getId() {
@@ -51,12 +51,12 @@ public class SkillsClass {
         SkillTwo = skillTwo;
     }
 
-    public User getUser() {
-        return user;
+    public RoboUser getRoboUser() {
+        return roboUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setRoboUser(RoboUser roboUser) {
+        this.roboUser = roboUser;
     }
 
 }

@@ -10,7 +10,7 @@ import java.util.Set;
 
 
 @Entity
-public class User {
+public class RoboUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,22 +31,22 @@ public class User {
 
 
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "roboUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
    public Set<Experience> experiences;
 
 
 
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "roboUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public Set<EducationClass> educationClass;
 
 
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "roboUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public Set<SkillsClass> skillClass;
 
 
-    public User(String firstName, String lastName, String emailAddress, Set<Experience> experiences, Set<EducationClass> educationClass, Set<SkillsClass> skillClass) {
+    public RoboUser(String firstName, String lastName, String emailAddress, Set<Experience> experiences, Set<EducationClass> educationClass, Set<SkillsClass> skillClass) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
@@ -55,7 +55,7 @@ public class User {
         this.skillClass = new HashSet<SkillsClass>();
     }
 
-    public User()
+    public RoboUser()
     {
 
 
@@ -65,7 +65,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "RoboUser{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
@@ -140,7 +140,7 @@ public class User {
 
    public void addEdu(EducationClass ed)
    {
-       ed.setUser(this);
+       ed.setRoboUser(this);
        this.educationClass.add(ed);
    }
 }

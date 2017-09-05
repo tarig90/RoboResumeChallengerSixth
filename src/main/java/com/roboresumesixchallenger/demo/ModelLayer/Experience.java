@@ -4,7 +4,6 @@ package com.roboresumesixchallenger.demo.ModelLayer;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Set;
 
 @Entity
 public class Experience {
@@ -30,7 +29,7 @@ public class Experience {
     // move classes to here
      @ManyToOne(fetch = FetchType.EAGER)
      @JoinColumn(name = "userexp_id")
-     private User user;
+     private RoboUser roboUser;
 
 
     public Experience(String companyName){
@@ -90,12 +89,12 @@ public class Experience {
     }
 
 
-    public User getUser() {
-        return user;
+    public RoboUser getRoboUser() {
+        return roboUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setRoboUser(RoboUser roboUser) {
+        this.roboUser = roboUser;
     }
 
 }
