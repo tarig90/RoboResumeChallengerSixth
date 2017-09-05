@@ -1,5 +1,7 @@
 package com.roboresumesixchallenger.demo.ModelLayer;
 
+import org.hibernate.validator.constraints.Email;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -24,6 +26,7 @@ public class User {
 
     @NotNull
     @Size(min=3, max =30)
+    @Email
     private String emailAddress;
 
 

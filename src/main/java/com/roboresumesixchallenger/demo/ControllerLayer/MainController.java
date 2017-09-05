@@ -46,7 +46,14 @@ public class MainController {
         return "index";
     }
 
+    // login Area
+    @GetMapping("/loginpage")
+    public String loginPage()
 
+    {
+
+        return "loginpage";
+    }
     // adding a user section
     @GetMapping("/adduser")
     public String addUser(Model model)
