@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface EducationRepository extends CrudRepository<EducationClass, Long>
 {
-
+    EducationClass findBySchoolName(String schoolName);
 
 
 }

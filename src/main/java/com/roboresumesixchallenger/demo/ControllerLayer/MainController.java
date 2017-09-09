@@ -49,18 +49,8 @@ public class MainController {
     JobRepository jobRepository;
 
 
-
-
     @RequestMapping("/")
-    public String index(Principal principal, Model model,RoboUser roboUser)
-    {
-
-
-
-
-
-
-
+    public String index(Principal principal, Model model, RoboUser roboUser) {
 
 
 //        String username = principal.getName();
@@ -81,19 +71,17 @@ public class MainController {
 //            return "index";
 //        }
 
-  return "index";
+        return "index";
     }
 
     @RequestMapping("/login")
-    public String login(Model model)
-    {
+    public String login(Model model) {
         return "login";
     }
 
 
     @RequestMapping("/secure")
-    public String secure()
-    {
+    public String secure() {
         return "secure";
     }
 
@@ -143,12 +131,8 @@ public class MainController {
 //    }
 
 
-
-
-
     @RequestMapping(value = "/rgseek", method = RequestMethod.GET)
-    public String showRegistrationseekerPage (Model model)
-    {
+    public String showRegistrationseekerPage(Model model) {
 
 
         model.addAttribute("user", new RoboUser());
@@ -157,10 +141,8 @@ public class MainController {
     }
 
     @RequestMapping(value = "/rgseek", method = RequestMethod.POST)
-    public String processRegistrationPage (@Valid @ModelAttribute("user") RoboUser roboUser, BindingResult result, Model model)
-    {
-        Role r =  new Role(1,"JobSeeker");
-
+    public String processRegistrationPage(@Valid @ModelAttribute("user") RoboUser roboUser, BindingResult result, Model model) {
+        Role r = new Role(1, "JobSeeker");
 
 
         roleRepository.save(r);
@@ -168,11 +150,9 @@ public class MainController {
 
         model.addAttribute("user", roboUser);
 
-        if (result.hasErrors())
-        {
+        if (result.hasErrors()) {
             return "regseek";
-        } else
-        {
+        } else {
             userService.saveUser(roboUser);
             model.addAttribute("message", "Seeker Account Successfully Created.");
         }
@@ -181,8 +161,7 @@ public class MainController {
     }
 
     @RequestMapping(value = "/rgrec", method = RequestMethod.GET)
-    public String showRegistrationrecruiterPage (Model model)
-    {
+    public String showRegistrationrecruiterPage(Model model) {
 
 
         model.addAttribute("user", new RoboUser());
@@ -190,22 +169,19 @@ public class MainController {
     }
 
     @RequestMapping(value = "/rgrec", method = RequestMethod.POST)
-    public String processRegistrationrecruiterPage (@Valid @ModelAttribute("user") RoboUser roboUser, BindingResult result, Model model)
-    {
+    public String processRegistrationrecruiterPage(@Valid @ModelAttribute("user") RoboUser roboUser, BindingResult result, Model model) {
 
 
-        Role s =  new Role(2,"Recruiter");
+        Role s = new Role(2, "Recruiter");
 
 
         roleRepository.save(s);
 
         model.addAttribute("user", roboUser);
 
-        if (result.hasErrors())
-        {
+        if (result.hasErrors()) {
             return "regrec";
-        } else
-        {
+        } else {
             userService.saveRecruit(roboUser);
             model.addAttribute("message", "Recruiter Account Successfully Created.");
         }
@@ -222,42 +198,37 @@ public class MainController {
 
     // login Area
     @GetMapping("/loginpage")
-    public String loginPage()
-    {
+    public String loginPage() {
 
-             return "loginpage";
+        return "loginpage";
     }
 
-//
+    //
     // adding a roboUser section
     @GetMapping("/adduser")
-    public String addUser(Model model)
-    {
+    public String addUser(Model model) {
         model.addAttribute("roboUser", new RoboUser());
 
         return "adduser";
     }
 
     @PostMapping("/adduser")
-    public String postAdd(@Valid Model model, RoboUser roboUser, BindingResult bindingResult)
-    {
-        if(bindingResult.hasErrors())
-        {
+    public String postAdd(@Valid Model model, RoboUser roboUser, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             return "adduser";
         }
-     model.addAttribute("roboUser", roboUser);
+        model.addAttribute("roboUser", roboUser);
 
-     userRepository.save(roboUser);
-     return "confirmuser";
+        userRepository.save(roboUser);
+        return "confirmuser";
 
     }
 
     // adding education
 
     @GetMapping("/addeducation/{id}")
-    public String getEDucation(@PathVariable("id") long id, RoboUser roboUser, Model model)
-    {
-        EducationClass educ =  new EducationClass();
+    public String getEDucation(@PathVariable("id") long id, RoboUser roboUser, Model model) {
+        EducationClass educ = new EducationClass();
         educ.setRoboUser(userRepository.findOne(id));
         model.addAttribute("newedu", educ);
 
@@ -265,12 +236,10 @@ public class MainController {
     }
 
     @PostMapping("/addeducation")
-    public String postEducation(@Valid @ModelAttribute("newedu") EducationClass edu, BindingResult bindingResult)
-    {
+    public String postEducation(@Valid @ModelAttribute("newedu") EducationClass edu, BindingResult bindingResult) {
 
 
-        if(bindingResult.hasErrors())
-        {
+        if (bindingResult.hasErrors()) {
             return "addeducation";
         }
         educationRepository.save(edu);
@@ -279,7 +248,7 @@ public class MainController {
 
 
     @RequestMapping("/updateED/{id}")
-    public String updateCourse(@PathVariable("id") long id, Model model){
+    public String updateCourse(@PathVariable("id") long id, Model model) {
         model.addAttribute("userList", userRepository.findOne(id));
         model.addAttribute("newedu", educationRepository.findOne(id));
         return "addeducation";
@@ -287,9 +256,8 @@ public class MainController {
     // add experience
 
     @GetMapping("/addexperience/{id}")
-    public String getExperience(@PathVariable("id") long id, RoboUser roboUser, Model model)
-    {
-       Experience exper =  new Experience();
+    public String getExperience(@PathVariable("id") long id, RoboUser roboUser, Model model) {
+        Experience exper = new Experience();
         exper.setRoboUser(userRepository.findOne(id));
         model.addAttribute("newexp", exper);
 
@@ -297,10 +265,8 @@ public class MainController {
     }
 
     @PostMapping("/addexperience")
-    public String postExperience(@Valid @ModelAttribute("newexp") Experience exp, BindingResult bindingResult)
-    {
-        if(bindingResult.hasErrors())
-        {
+    public String postExperience(@Valid @ModelAttribute("newexp") Experience exp, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             return "addexperience";
         }
         experienceRepository.save(exp);
@@ -310,7 +276,7 @@ public class MainController {
 
     //update experience
     @RequestMapping("/updateEx/{id}")
-    public String updateExperience(@PathVariable("id") long id, Model model){
+    public String updateExperience(@PathVariable("id") long id, Model model) {
 
         model.addAttribute("newexp", experienceRepository.findOne(id));
         return "addexperience";
@@ -320,9 +286,8 @@ public class MainController {
     // add skills
 
     @GetMapping("/addskills/{id}")
-    public String getSkills(@PathVariable("id") long id, RoboUser roboUser, Model model)
-    {
-        SkillsClass skl =  new SkillsClass();
+    public String getSkills(@PathVariable("id") long id, RoboUser roboUser, Model model) {
+        SkillsClass skl = new SkillsClass();
         skl.setRoboUser(userRepository.findOne(id));
         model.addAttribute("newskl", skl);
 
@@ -330,10 +295,8 @@ public class MainController {
     }
 
     @PostMapping("/addskills")
-    public String postEducation(@Valid @ModelAttribute("newskl") SkillsClass skla, BindingResult bindingResult)
-    {
-        if(bindingResult.hasErrors())
-        {
+    public String postEducation(@Valid @ModelAttribute("newskl") SkillsClass skla, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             return "addskills";
         }
         skillRepository.save(skla);
@@ -341,7 +304,7 @@ public class MainController {
     }
 
     @RequestMapping("/updateSkl/{id}")
-    public String updateSKill(@PathVariable("id") long id, Model model){
+    public String updateSKill(@PathVariable("id") long id, Model model) {
 
         model.addAttribute("newskl", skillRepository.findOne(id));
         return "addskills";
@@ -356,29 +319,28 @@ public class MainController {
     {
         model.addAttribute("allusers", userRepository.findAll());
         model.addAttribute("allskills", skillRepository.findAll());
-        model.addAttribute("allexperience",experienceRepository.findAll());
+        model.addAttribute("allexperience", experienceRepository.findAll());
         model.addAttribute("alleducation", educationRepository.findAll());
 
         return "displayall";
     }
 
     @RequestMapping("/update/{type}/{id}")
-    public String update(@PathVariable("type")String type, @PathVariable("id")long id , Model model)
-    {
-        String output=null;
-        switch(type){
+    public String update(@PathVariable("type") String type, @PathVariable("id") long id, Model model) {
+        String output = null;
+        switch (type) {
             case "roboUser":
                 //stuff
-                model.addAttribute("roboUser",userRepository.findOne(id));
+                model.addAttribute("roboUser", userRepository.findOne(id));
                 //model.addAttribute("listeduc", educationRepository.findAll());
-                output="adduser";
+                output = "adduser";
                 break;
             case "educationClass":
                 //stuff
-                model.addAttribute("newedu",educationRepository.findOne(id));
-              //  model.addAttribute("listuzer", userRepository.findAll());
-               // output="addemployee";
-                output="addeducation";
+                model.addAttribute("newedu", educationRepository.findOne(id));
+                //  model.addAttribute("listuzer", userRepository.findAll());
+                // output="addemployee";
+                output = "addeducation";
                 break;
         }
         return output;
@@ -386,7 +348,7 @@ public class MainController {
 
 
     @RequestMapping("/detail/{id}")
-    public String showCourse(@PathVariable("id") long id, Model model){
+    public String showCourse(@PathVariable("id") long id, Model model) {
         model.addAttribute("userdetail", userRepository.findOne(id));
         model.addAttribute("listeducation", educationRepository.findOne(id));
         model.addAttribute("listexperience", experienceRepository.findOne(id));
@@ -395,9 +357,8 @@ public class MainController {
     }
 
     @RequestMapping("delete/sortof/{id}")
-    public String deleteUser(@PathVariable("sortof") String sortof, @PathVariable("id") long id)
-    {
-        switch(sortof){
+    public String deleteUser(@PathVariable("sortof") String sortof, @PathVariable("id") long id) {
+        switch (sortof) {
 
             case "roboUser":
                 userRepository.delete(id);
@@ -422,8 +383,7 @@ public class MainController {
 
     // job section
     @RequestMapping("/addjob")
-    public String getJobs(RoboUser roboUser, Model model, Role role)
-    {
+    public String getJobs(RoboUser roboUser, Model model, Role role) {
         model.addAttribute("jobs", new JobDetils());
         model.addAttribute("listSkills", skillRepository.findAll());
 
@@ -432,16 +392,15 @@ public class MainController {
 
 
     @PostMapping("/addjob")
-    public String postJobs(@ModelAttribute("jobs") JobDetils jb,Model model)
-    {
+    public String postJobs(@ModelAttribute("jobs") JobDetils jb, Model model) {
+
         jobRepository.save(jb);
         return "confirmjob";
     }
 
 
     @RequestMapping("/displayjobs")
-    public String displayJObs(Model model)
-    {
+    public String displayJObs(Model model) {
 
         model.addAttribute("jobs", jobRepository.findAll());
         return "displayjobs";
@@ -460,34 +419,94 @@ public class MainController {
 
     //post search jobs section
     @PostMapping("/searchjobs")
-    public String searchJobs(@ModelAttribute("searchJob") JobDetils jb, Model model)
-    {
+    public String searchJobs(@ModelAttribute("searchJob") JobDetils jb, Model model) {
         Iterable<JobDetils> listJobs = jobRepository.findByTitle(jb.getTitle());
-        model.addAttribute("ljobs", listJobs );
+        model.addAttribute("ljobs", listJobs);
 
         return "jobresult";
     }
 
 
-
     //  request company search
 
     @GetMapping("/searchcompany")
-    public String companySearch(Model model)
-    {
-        model.addAttribute("lcompany", new JobDetils());
+    public String companySearch(Model model, JobDetils j) {
+        model.addAttribute("lcompany", j);
         return "searchcompany";
     }
 
 
     @RequestMapping("/searchcompany")
-    public String searchCompanies(@ModelAttribute("searchcompany") JobDetils jb, Model model)
-    {
+    public String searchCompanies(@ModelAttribute("searchcompany") JobDetils jb, Model model) {
         Iterable<JobDetils> listCompanies = jobRepository.findByEmployerName(jb.getEmployerName());
-         model.addAttribute("lcompany", listCompanies);
+        model.addAttribute("lcompany", listCompanies);
         return "companyresult";
     }
 
+    // search for people
+    @GetMapping("/searchpeople")
+    public String companyPeople(Model model, RoboUser j) {
+        model.addAttribute("peepz", j);
+        return "searchpeople";
+    }
 
 
+    @RequestMapping("/searchpeople")
+    public String searchPeoples(@ModelAttribute("peepz") RoboUser roboUser, Model model) {
+        Iterable<RoboUser> listpeople = userRepository.findAllByUsername(roboUser.getUsername());
+        model.addAttribute("peepz", listpeople);
+        return "peopleresult";
+    }
+
+
+    // serach for education
+//    @GetMapping("/searchschool")
+//    public String companySchool(Model model, RoboUser j)
+//    {
+//        model.addAttribute("lpeepz", j);
+//        return "searchSchool";
+//    }
+//
+//
+//    @RequestMapping("/searchschool")
+//    public String searchPeoples(@ModelAttribute("searchschool") EducationClass edu, Model model)
+//    {
+//        Iterable<EducationClass> listedu = educationRepository.findBySchoolName(edu.getSchoolName());
+//        model.addAttribute("lcompany", edu);
+//        return "companyresult";
+//    }
+
+    // add skills to user
+
+    @GetMapping("/addskilltojob/{id}")
+    public String addMovie(@PathVariable("id") long jobID, Model model) {
+      model.addAttribute("job", jobRepository.findOne(new Long(jobID)));
+       model.addAttribute("skillList", skillRepository.findAll());
+
+        //model.addAttribute("job", jobRepository.findOne(new Long(jobID)))
+        return "addskilltojob";
+    }
+
+    @PostMapping("/addskilltojob/{movid}")
+    public String addSKillToJOb(@RequestParam("skills") String skillId, @PathVariable("jobid") long jobId,  @ModelAttribute("skill") SkillsClass a, Model model)
+    {
+
+        SkillsClass s =  new SkillsClass();
+//        System.out.println("Actor ID"+actorID);
+//        System.out.println("Movie ID"+movieID);
+        SkillsClass m = skillRepository.findOne(new Long(skillId));
+
+        m.AddJOb(jobRepository.findOne(new Long(jobId)));
+       // m.addActor(actorRepository.findOne(new Long(actorID)));
+        skillRepository.save(m);
+
+        model.addAttribute("jobList",jobRepository.findAll());
+        model.addAttribute("skillList",skillRepository.findAll());
+        //System.out.println("Actor ID from anActor"+a.getId());
+        return "redirect:/";
+    }
 }
+
+
+
+

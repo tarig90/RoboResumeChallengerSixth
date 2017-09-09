@@ -25,6 +25,8 @@ public class JobDetils {
     @ManyToMany
     private Set<SkillsClass> skillz;
 
+    public JobDetils(){}
+
     public long getId() {
         return id;
     }

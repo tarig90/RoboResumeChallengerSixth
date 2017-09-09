@@ -73,4 +73,9 @@ public class SkillsClass {
     {
         this.jobz = jobz;
     }
+
+    public void AddJOb(JobDetils jb)
+    {
+     this.jobz.add(jb);
+    }
 }

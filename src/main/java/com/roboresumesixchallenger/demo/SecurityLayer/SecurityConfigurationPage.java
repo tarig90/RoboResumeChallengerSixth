@@ -35,7 +35,7 @@ public class SecurityConfigurationPage extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/","/rgrec","/rgseek").permitAll()
+                .antMatchers("/","/rgrec","/rgseek","/addjob","/confirmjob","/displayjobs","/searchcompany","/searchpeople","/adduser","/addskills/{id}","/confirmuser/{id}","/confirmskills/{id}","/addeducation/{id}","/confirmeducation/{id}","addexperience/{id}","confirmexperience/{id}","/addskilltojob/{id}").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").permitAll()
