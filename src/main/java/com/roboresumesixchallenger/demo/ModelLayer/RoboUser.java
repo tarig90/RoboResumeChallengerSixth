@@ -5,33 +5,54 @@ import org.hibernate.validator.constraints.Email;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 
 @Entity
+@Table(name = "USER_DATA")
 public class RoboUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Email
+    @Column(name = "email", nullable = false)
+    private String emailAddress;
+
     @NotNull
     @Size(min=3, max =30)
+    @Column(name = "password")
+    private String password;
+
+
+    @NotNull
+    @Size(min=3, max =30)
+    @Column(name = "first_name")
     private String firstName;
 
     @NotNull
     @Size(min=3, max =30)
+    @Column(name = "last_name")
     private String lastName;
 
-    @NotNull
-    @Size(min=3, max =30)
-    @Email
-    private String emailAddress;
+    @Column(name = "enabled")
+    private Boolean enabled;
+
+    @Column(name = "username")
+    private String username;
 
 
 
-    @OneToMany(mappedBy = "roboUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Collection<Role> roles;
+
+    @OneToMany(mappedBy = "roboUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
    public Set<Experience> experiences;
 
 
@@ -46,35 +67,35 @@ public class RoboUser {
     public Set<SkillsClass> skillClass;
 
 
-    public RoboUser(String firstName, String lastName, String emailAddress, Set<Experience> experiences, Set<EducationClass> educationClass, Set<SkillsClass> skillClass) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.emailAddress = emailAddress;
-        this.experiences = new HashSet<Experience>();
-        this.educationClass = new HashSet<EducationClass>();
-        this.skillClass = new HashSet<SkillsClass>();
-    }
+//    public RoboUser(String firstName, String lastName, String emailAddress, Set<Experience> experiences, Set<EducationClass> educationClass, Set<SkillsClass> skillClass) {
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.emailAddress = emailAddress;
+//        this.experiences = new HashSet<Experience>();
+//        this.educationClass = new HashSet<EducationClass>();
+//        this.skillClass = new HashSet<SkillsClass>();
+//    }
 
     public RoboUser()
     {
-
-
     }
 
 
 
-    @Override
-    public String toString() {
-        return "RoboUser{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", emailAddress='" + emailAddress + '\'' +
-                ", experiences=" + experiences +
-                ", educationClass=" + educationClass +
-                ", skillClass=" + skillClass +
-                '}';
-    }
+
+
+//    @Override
+//    public String toString() {
+//        return "RoboUser{" +
+//                "id=" + id +
+//                ", firstName='" + firstName + '\'' +
+//                ", lastName='" + lastName + '\'' +
+//                ", emailAddress='" + emailAddress + '\'' +
+//                ", experiences=" + experiences +
+//                ", educationClass=" + educationClass +
+//                ", skillClass=" + skillClass +
+//               '}';
+//    }
 
     public long getId() {
         return id;
@@ -101,7 +122,6 @@ public class RoboUser {
     }
 
 
-
     public String getEmailAddress() {
         return emailAddress;
     }
@@ -109,9 +129,6 @@ public class RoboUser {
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
     }
-
-
-
 
     public Set<Experience> getExperiences() {
         return experiences;
@@ -143,4 +160,42 @@ public class RoboUser {
        ed.setRoboUser(this);
        this.educationClass.add(ed);
    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void addRole(Role role)
+    {
+        this.roles.add(role);
+    }
 }

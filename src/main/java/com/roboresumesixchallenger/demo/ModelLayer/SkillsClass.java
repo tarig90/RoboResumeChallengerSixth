@@ -4,6 +4,7 @@ package com.roboresumesixchallenger.demo.ModelLayer;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Entity
 public class SkillsClass {
@@ -25,6 +26,10 @@ public class SkillsClass {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userskill_id")
     private RoboUser roboUser;
+
+
+    @ManyToMany
+    private Set<JobDetils> jobz;
 
 
     public long getId() {
@@ -59,4 +64,13 @@ public class SkillsClass {
         this.roboUser = roboUser;
     }
 
+    public Set<JobDetils> getJobz()
+    {
+        return jobz;
+    }
+
+    public void setJobz(Set<JobDetils> jobz)
+    {
+        this.jobz = jobz;
+    }
 }
