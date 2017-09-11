@@ -19,6 +19,16 @@ public class JobDetils {
 
     private String salaryDescription;
 
+    public RoboUser getRb() {
+        return rb;
+    }
+
+    public void setRb(RoboUser rb) {
+        this.rb = rb;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private RoboUser rb;
 
     private String skil;
 

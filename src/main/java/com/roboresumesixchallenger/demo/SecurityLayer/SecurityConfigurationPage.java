@@ -38,11 +38,11 @@ public class SecurityConfigurationPage extends WebSecurityConfigurerAdapter {
                 .antMatchers("/","/rgrec","/rgseek","/addjob","/confirmjob","/displayjobs","/searchcompany","/searchpeople","/adduser","/addskills/{id}","/confirmuser/{id}","/confirmskills/{id}","/addeducation/{id}","/confirmeducation/{id}","addexperience/{id}","confirmexperience/{id}","/addskilltojob/{id}").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/login").permitAll()
+                .formLogin().loginPage("/loginpage").permitAll()
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login").permitAll().permitAll()
+                .logoutSuccessUrl("/loginpage").permitAll().permitAll()
                 .and()
                 .httpBasic();
 

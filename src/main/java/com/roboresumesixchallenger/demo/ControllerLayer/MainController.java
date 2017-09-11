@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.awt.*;
 import java.security.Principal;
+import java.util.ArrayList;
 
 @Controller
 public class MainController {
@@ -49,10 +50,12 @@ public class MainController {
     JobRepository jobRepository;
 
 
-    @RequestMapping("/")
-    public String index(Principal principal, Model model, RoboUser roboUser) {
+    @RequestMapping("/{id}")
+    public String index(Principal p, Model model) {
 
 
+
+        RoboUser roboUser = userRepository.findByUsername(p.getName());
 //        String username = principal.getName();
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //
@@ -61,7 +64,7 @@ public class MainController {
 //
 //        boolean hasRecruitrRole = authentication.getAuthorities().stream()
 //                .anyMatch(r -> r.getAuthority().equals("Recruiter"));
-
+//
 //
 //        if(hasUserRole == true)
 //        {return  "jobsearch";}
@@ -71,7 +74,7 @@ public class MainController {
 //            return "index";
 //        }
 
-        return "index";
+      return "index";
     }
 
     @RequestMapping("/login")
@@ -81,7 +84,49 @@ public class MainController {
 
 
     @RequestMapping("/secure")
-    public String secure() {
+    public String secure(Principal principal, Model model) {
+
+//        Person pperson = personRepo.findByUsername(p.getName());
+//        String username = principal.getName();
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//
+//        boolean hasUserRole = authentication.getAuthorities().stream()
+//                .anyMatch(r -> r.getAuthority().equals("JobSeeker"));
+//
+//        boolean hasRecruitrRole = authentication.getAuthorities().stream()
+//                .anyMatch(r -> r.getAuthority().equals("Recruiter"));
+//
+//
+//        if(hasUserRole == true)
+//        {return  "addjob";}
+//        else if(hasRecruitrRole == true)
+//        {return "displayall";}
+//        else {
+//            return "index";
+//        }
+
+
+        //in oder to use old route, will fix later
+//        model.addAttribute("newperson", userRepository.findByUsername(principal.getName()));
+//
+//        // if the person has a role of jobseek, check if there are jobs matches the skill, and send out notification!!!!
+//        if (userRepository.findByUsername(principal.getName()).getRoles().iterator().next().getRole().equalsIgnoreCase("JobSeeker")) {
+//
+////
+//           // System.out.println("---------role:" + personRepo.findByUsername(p.getName()).getRoles().iterator().next().getRoleName());
+//
+//            RoboUser roboUser1 = userService.finByUsername(principal.getName());
+//
+//            ArrayList<Job> matchingJob =  new ArrayList<Job>();
+//
+//            if (person.getSkills().isEmpty())
+//            {
+//                model.addAttribute("message", "Welcome to our Resume database. Please enter your skills to your resume, and we will check for the matching job for you!");
+//                model.addAttribute("matchingJob", matchingJob);
+//            }
+
+
+
         return "secure";
     }
 
@@ -382,8 +427,18 @@ public class MainController {
 
 
     // job section
-    @RequestMapping("/addjob")
-    public String getJobs(RoboUser roboUser, Model model, Role role) {
+    @GetMapping("/addjob")
+    public String getJobs(RoboUser roboUser, Model model, Role role, Principal p) {
+
+
+        String username =  p.getName();
+        JobDetils j =  new JobDetils();
+        j.setRb(userRepository.findByUsername(username));
+
+
+        SkillsClass skillsz = new SkillsClass();
+        skillsz.setSkillOne("Select skill");
+        skillRepository.save(skillsz);
         model.addAttribute("jobs", new JobDetils());
         model.addAttribute("listSkills", skillRepository.findAll());
 
@@ -392,8 +447,10 @@ public class MainController {
 
 
     @PostMapping("/addjob")
-    public String postJobs(@ModelAttribute("jobs") JobDetils jb, Model model) {
+    public String postJobs(@ModelAttribute("id") RoboUser roboUser, Model model, JobDetils jb) {
 
+
+        model.addAttribute("jobs", jb);
         jobRepository.save(jb);
         return "confirmjob";
     }
@@ -458,6 +515,81 @@ public class MainController {
         return "peopleresult";
     }
 
+    // search education
+
+    @GetMapping("/searchschool")
+    public String searcheducation(Model model, EducationClass edu) {
+        model.addAttribute("edu", edu);
+        return "searchschool";
+    }
+
+
+    @RequestMapping("/searchschool")
+    public String postsearchschool(@ModelAttribute("edu") EducationClass edu, Model model) {
+        Iterable<EducationClass> listschool = educationRepository.findAllBySchoolName(edu.getSchoolName());
+        model.addAttribute("edu", edu);
+        return "schoolresults";
+    }
+
+
+    @GetMapping("/matchnotify")
+    public String matchAndNotify(Principal p, Model model)
+    {
+
+        //in oder to use old route, will fix later
+        model.addAttribute("newperson", userRepository.findByUsername(p.getName()));
+
+        // if the person has a role of jobseek, check if there are jobs matches the skill, and send out notification!!!!
+        if (userRepository.findByUsername(p.getName()).getRoles().iterator().next().getRole().equalsIgnoreCase("JobSeeker")) {
+
+            System.out.println("------" + p.getName());
+
+           // System.out.println("---------role:" + userRepository.findByUsername(p.getName()).getRoles().iterator().next().getUsers());
+
+            RoboUser rbuser = userService.finByUsername(p.getName());
+
+            ArrayList<JobDetils> matchingJob =  new ArrayList<JobDetils>();
+
+            if (rbuser.getSkillClass().isEmpty())
+            {
+                model.addAttribute("message", "Welcome to our Resume database. Please enter your skills to your resume, and we will check for the matching job for you!");
+                model.addAttribute("matchingJob", matchingJob);
+            }
+
+            else{
+
+                for (SkillsClass s : rbuser.getSkillClass()) {
+
+                    if (jobRepository.findAllBySkil(s.getSkillOne()) != null) {
+                        ArrayList<JobDetils> alljobs = (ArrayList<JobDetils>) jobRepository.findAllBySkil(s.getSkillOne());
+
+                        for(JobDetils item:alljobs)
+                        {
+                            matchingJob.add(item);
+                        }
+
+                    }
+                }
+                if (matchingJob.isEmpty())
+                {
+                    model.addAttribute("message", "No job matches your the skill you have, come back later!");
+                    model.addAttribute("matchingJob", matchingJob);
+                }
+                else{
+                    model.addAttribute("message", "We find some job postings that match your skill");
+                    model.addAttribute("matchingJob", matchingJob);
+
+                }
+            }
+
+            return "notificationS";
+        }
+
+        //for recruiter, will have a notification method like the above later!
+        else {
+            return "index";
+        }
+    }
 
     // serach for education
 //    @GetMapping("/searchschool")
