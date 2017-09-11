@@ -50,7 +50,7 @@ public class MainController {
     JobRepository jobRepository;
 
 
-    @RequestMapping("/{id}")
+    @RequestMapping("/")
     public String index(Principal p, Model model) {
 
 
@@ -77,9 +77,9 @@ public class MainController {
       return "index";
     }
 
-    @RequestMapping("/login")
+    @RequestMapping("/loginpage")
     public String login(Model model) {
-        return "login";
+        return "loginpage";
     }
 
 
