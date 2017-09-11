@@ -51,11 +51,11 @@ public class MainController {
 
 
     @RequestMapping("/")
-    public String index(Principal p, Model model) {
+    public String index() {
 
 
 
-        RoboUser roboUser = userRepository.findByUsername(p.getName());
+       // RoboUser roboUser = userRepository.findByUsername(p.getName());
 //        String username = principal.getName();
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //
